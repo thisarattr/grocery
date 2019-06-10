@@ -1,0 +1,90 @@
+plugins {
+	id 'org.springframework.boot' version '2.1.5.RELEASE'
+	id 'java'
+	id 'idea'
+	id 'jacoco'
+}
+
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'checkstyle'
+apply plugin: 'jacoco'
+
+group = 'com.thisarattr'
+version = '1.0'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+checkstyle {
+	configFile = file("$projectDir/configs/google-checkstyle.xml")
+	toolVersion = "8.0"
+}
+
+tasks.withType(Checkstyle) {
+	classpath = project.sourceSets.main.output
+	classpath += configurations.compile
+	classpath += configurations.testCompile
+}
+
+jacoco {
+	toolVersion = "0.8.3"
+	reportsDir = file("$buildDir/reports/jacoco")
+}
+
+test {
+	jacoco {
+		append = false
+		enabled = true
+		destinationFile = file("$buildDir/jacoco/jacocoTest.exec")
+		classDumpDir = file("$buildDir/jacoco/classpathdumps")
+	}
+}
+
+jacocoTestReport {
+	reports {
+		xml.enabled false
+		csv.enabled false
+		html.destination file("${buildDir}/reports/jacoco/jacocoHtml")
+	}
+}
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	compile('org.springframework.security:spring-security-crypto')
+	compile('org.hibernate:hibernate-core:5.4.3.Final')
+	compile('io.jsonwebtoken:jjwt:0.7.0')
+	compile('org.apache.commons:commons-lang3:3.9')
+	runtime('com.h2database:h2:1.4.199')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testCompile('org.apache.httpcomponents:httpclient:4.5.3')
+}
+
+jar {
+	enabled = true
+	archiveBaseName = project.name
+	//baseName = project.name
+	version = "$version"
+	manifest {
+		attributes 'Specification-Title': 'Address Validator'
+		attributes 'Main-Class': 'com.thisarattr.grocery.GroceryApplication'
+		attributes 'Specification-Version': "$version"
+		attributes 'Implementation-Version': "$version"
+		attributes "Implementation-Timestamp": new Date()
+	}
+}
+
+springBoot {
+	//executable = true
+	mainClassName = 'com.thisarattr.grocery.GroceryApplication'
+}
+
+task sourcesJar(type: Jar) {
+	classifier = 'sources'
+	from sourceSets.main.allSource
+}

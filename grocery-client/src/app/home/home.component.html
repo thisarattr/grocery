@@ -1,0 +1,29 @@
+
+<h1>Items</h1>
+
+<div class="table-responsive">
+<table class="table" *ngIf="items">
+  <thead>
+  <tr>
+    <th scope="col">Name</th>
+    <th scope="col">Description</th>
+    <th scope="col">SKU</th>
+    <th scope="col">Price</th>
+    <th scope="col">Category</th>
+    <th scope="col">Created</th>
+    <th scope="col">Action</th>
+  </tr>
+  </thead>
+  <tbody *ngFor="let item of items.items">
+  <tr>
+    <th><a href="/update-item/{{item.id}}"> {{ item.name }} </a></th>
+    <td>{{ item.description }}</td>
+    <td>{{ item.sku }}</td>
+    <td>{{ item.price }}</td>
+    <td>{{ getCategoryList(item) }}</td>
+    <td>{{ item.created_on }}</td>
+    <td><button (click)="delete(item.id)">Delete</button></td>
+  </tr>
+  </tbody>
+</table>
+</div>

@@ -1,0 +1,64 @@
+<h1>Update Item {{id}}</h1>
+
+<form *ngIf="retrievedItem" [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+
+  <h5 *ngIf="success">Item Updated successfully!</h5>
+
+  <label>
+    Name:
+    <input type="text" formControlName="name" [(ngModel)]="retrievedItem.name">
+    <div *ngIf="submitted && updateForm.controls.name.errors" class="error">
+      <div *ngIf="updateForm.controls.name.errors.required">Item name is required</div>
+    </div>
+  </label>
+
+  <label>
+    Description:
+    <input formControlName="description" [(ngModel)]="retrievedItem.description">
+    <div *ngIf="submitted && updateForm.controls.description.errors" class="error">
+    </div>
+  </label>
+
+  <label>
+    SKU:
+    <input formControlName="sku" [(ngModel)]="retrievedItem.sku">
+    <div *ngIf="submitted && updateForm.controls.sku.errors" class="error">
+      <div *ngIf="updateForm.controls.sku.errors.required">A sku is required</div>
+    </div>
+  </label>
+
+  <label>
+    Dimensions:
+    <input formControlName="dimensions" [(ngModel)]="retrievedItem.dimensions">
+    <div *ngIf="submitted && updateForm.controls.dimensions.errors" class="error">
+    </div>
+  </label>
+
+  <label>
+    Price:
+    <input formControlName="price" [(ngModel)]="retrievedItem.price">
+    <div *ngIf="submitted && updateForm.controls.price.errors" class="error">
+      <div *ngIf="updateForm.controls.price.errors.required">A price is required</div>
+    </div>
+  </label>
+
+  <label>
+    Made In:
+    <input formControlName="madeIn" [(ngModel)]="retrievedItem.made_in">
+    <div *ngIf="submitted && updateForm.controls.madeIn.errors" class="error">
+    </div>
+  </label>
+
+  <label>
+    Categories:
+    <select formControlName="categories" multiple [(ngModel)]="retrievedItem.categories">
+      <option *ngFor="let c of categories" [ngValue]="c">{{ c.name }}</option>
+    </select>
+    <div *ngIf="submitted && updateForm.controls.categories.errors" class="error">
+      <div *ngIf="updateForm.controls.categories.errors.required">Your categories is required</div>
+    </div>
+  </label>
+
+  <input type="submit" value="Update" class="cta">
+
+</form>

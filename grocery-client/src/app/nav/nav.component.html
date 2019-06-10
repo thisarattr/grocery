@@ -1,0 +1,12 @@
+<header>
+  <div class="container">
+    <a routerLink="/" class="logo"> {{appTitle}}</a>
+    <nav *ngIf="currentUser">
+      <ul>
+        <li><a routerLink="/">Home</a></li>
+        <li><a routerLink="/add-item">Add Item</a></li>
+        <li><a (click)="logout()">Logout</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>

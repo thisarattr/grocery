@@ -1,0 +1,79 @@
+
+<h1>Create Item</h1>
+
+<form [formGroup]="createForm" (ngSubmit)="onSubmit()">
+
+  <h5 *ngIf="success">Item created successfully!</h5>
+
+  <label>
+    Name:
+    <input type="text" formControlName="name">
+    <div *ngIf="submitted && createForm.controls.name.errors" class="error">
+      <div *ngIf="createForm.controls.name.errors.required">Item name is required</div>
+    </div>
+  </label>
+
+  <label>
+    Description:
+    <input formControlName="description">
+    <div *ngIf="submitted && createForm.controls.description.errors" class="error">
+    </div>
+  </label>
+
+  <label>
+    SKU:
+    <input formControlName="sku">
+    <div *ngIf="submitted && createForm.controls.sku.errors" class="error">
+      <div *ngIf="createForm.controls.sku.errors.required">A sku is required</div>
+    </div>
+  </label>
+
+  <label>
+    Dimensions:
+    <input formControlName="dimensions">
+    <div *ngIf="submitted && createForm.controls.dimensions.errors" class="error">
+    </div>
+  </label>
+
+  <label>
+    Price:
+    <input formControlName="price">
+    <div *ngIf="submitted && createForm.controls.price.errors" class="error">
+      <div *ngIf="createForm.controls.price.errors.required">A price is required</div>
+    </div>
+  </label>
+
+  <label>
+    Made In:
+    <input formControlName="madeIn">
+    <div *ngIf="submitted && createForm.controls.madeIn.errors" class="error">
+    </div>
+  </label>
+
+  <label>
+    Categories:
+    <select formControlName="categories" multiple>
+      <option *ngFor="let c of categories" [ngValue]="c">{{ c.name }}</option>
+    </select>
+    <div *ngIf="submitted && createForm.controls.categories.errors" class="error">
+      <div *ngIf="createForm.controls.categories.errors.required">Your categories is required</div>
+    </div>
+  </label>
+
+  <input type="submit" value="Create" class="cta">
+
+</form>
+
+<div *ngIf="submitted && savedItem" class="results">
+  <strong>Id:</strong>
+  <span>{{ savedItem.id }}</span>  <!-- This saveItem might not init by the time it tried to retrie-->
+
+  <strong>Name:</strong>
+  <span>{{ savedItem.name }}</span>
+
+  <strong>Created:</strong>
+  <span>{{ savedItem.created_on }}</span>
+
+</div>
+
+
