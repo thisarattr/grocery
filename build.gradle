@@ -1,16 +1,11 @@
 plugins {
 	id 'org.springframework.boot' version '2.1.5.RELEASE'
+	id 'io.spring.dependency-management' version "1.0.6.RELEASE"
 	id 'java'
 	id 'idea'
 	id 'jacoco'
+	id 'checkstyle'
 }
-
-apply plugin: 'io.spring.dependency-management'
-apply plugin: 'java'
-apply plugin: 'idea'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'checkstyle'
-apply plugin: 'jacoco'
 
 group = 'com.thisarattr'
 version = '1.0'
@@ -68,7 +63,6 @@ dependencies {
 jar {
 	enabled = true
 	archiveBaseName = project.name
-	//baseName = project.name
 	version = "$version"
 	manifest {
 		attributes 'Specification-Title': 'Address Validator'
@@ -79,9 +73,8 @@ jar {
 	}
 }
 
-springBoot {
-	//executable = true
-	mainClassName = 'com.thisarattr.grocery.GroceryApplication'
+bootJar {
+    mainClassName = 'com.thisarattr.grocery.GroceryApplication'
 }
 
 task sourcesJar(type: Jar) {
