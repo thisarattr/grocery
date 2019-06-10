@@ -4,6 +4,18 @@ jdk: oraclejdk8
 #install: true
 #script: ./gradlew build
 
+node_js:
+  - "11.11.0"
+before_script:
+  - export NG_CLI_ANALYTICS=ci
+  - npm i -g npm@latest
+  - npm install -g @angular/cli@8.0.0
+
+script:
+  - ng lint
+  - ng build --prod --base-href https://thisarattr.github.io/grocery/
+
 cache:
   directories:
   - $HOME/.gradle
+  - node_modules
