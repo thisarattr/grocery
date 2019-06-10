@@ -1,19 +1,22 @@
-language: java
-jdk: oraclejdk8
+matrix:
+  include:
 
-#install: true
-#script: ./gradlew build
+    - language: java
+      jdk: oraclejdk8
+      script: ./gradlew build
 
-node_js:
-  - "11.11.0"
-before_script:
-  - export NG_CLI_ANALYTICS=ci
-  - npm i -g npm@latest
-  - npm install -g @angular/cli@8.0.0
+    - language: node_js
+      node_js:
+        - "11.11.0"
+      before_script:
+        - cd grocery-client
+        - export NG_CLI_ANALYTICS=ci
+        - npm i -g npm@latest
+        - npm install -g @angular/cli@8.0.0
+        - npm install
 
-script:
-  - ng lint
-  - ng build --prod --base-href https://thisarattr.github.io/grocery/
+      script:
+        - ng build --prod
 
 cache:
   directories:
